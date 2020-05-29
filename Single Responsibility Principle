@@ -1,2 +1,66 @@
 Single Responsibility Prinicples : means that a class should have only one reason to change. Meaning that one class should have one reason
 to change.
+
+
+Employee.java
+
+public class Employee{
+  private String employeeId;
+  private String name;
+  private string address; 
+  private Date dateOfJoining;
+  public boolean isPromotionDueThisYear(){
+    //promotion logic implementation
+  }
+  public Double calcIncomeTaxForCurrentYear(){
+    //income tax logic implementation
+  }
+  //Getters & Setters for all the private attributes
+}
+
+The above Employee class looks logically correct. It has all the employee attributes like employeeId, name, age, address & dateOfJoining. It even tells you if the employee is eligible for promotion this year and calculates the income tax he has to pay for the year.
+
+However, Employee class breaks the Single Responsibility Principle. Lets see how –
+
+The logic of determining whether the employee is due this year is actually not a responsibility which the employee owns. The company’s HR department owns this responsibility based on the company’s HR policies which may change every few years. On any such change in HR policies, the Employee class will need to be updated as it is currently has the responsibility of promotion determination.
+Similarly, income tax calculation is not a responsibility of the Employee. It is the finance department’s responsibility which it takes care of the current tax structure which may get updated every year. If Employee class owns the income tax calculation responsibility then whenever tax structure/calculations change Employee class will need to be changed.
+Lastly, Employee class should have the single responsibility of maintaining core attributes of an employee.
+Refactoring the Employee class so that it adheres to Single Responsibility Principle
+Let us now refactor the Employee class to make it own a single responsibility.
+
+Lets move the promotion determination logic from Employee class to the HRPromotions class like this –
+
+HRPromotions.java
+public class HRPromotions{
+  public boolean isPromotionDueThisYear(Employee emp){
+    //promotion logic implementation using the employee information passed
+  }
+}
+
+FinITCalculations.java
+public class FinITCalculations{
+  public Double calcIncomeTaxForCurrentYear(Employee emp){
+    //income tax logic implementation using the employee information passed
+  }
+}
+
+Employee.java adhering to Single Responsibility Principle
+public class Employee{ 
+  private String employeeId;
+  private String name;
+  private string address; 
+  private Date dateOfJoining;
+  //Getters & Setters for all the private attributes
+}
+
+
+
+
+
+
+
+
+
+
+
+
