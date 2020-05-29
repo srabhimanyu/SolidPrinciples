@@ -1,0 +1,2 @@
+Single Responsibility Prinicples : means that a class should have only one reason to change. Meaning that one class should have one reason
+to change.
